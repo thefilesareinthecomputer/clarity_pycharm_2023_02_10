@@ -2,7 +2,8 @@ import my_gui
 import data_preprocessing
 import sentiment_analysis
 from kivy.app import App
-
+from my_gui import MainApp
+from data_preprocessing import df
 class MainApp(App):
     def __init__(self, **kwargs):
         print("Constructing MainApp")
@@ -18,7 +19,6 @@ class MainApp(App):
     def handle_user_input(self, user_input):
         response = sentiment_analysis.generate_response(self.df, user_input)
         self.main_app.show_response(response)
-
 
 if __name__ == "__main__":
     MainApp().run()

@@ -12,7 +12,7 @@ class ChatInterface(GridLayout):
         super().__init__(**kwargs)
         self.cols = 1
         self.df = df
-
+        self.on_submit = on_submit
 
         # create chat window
         self.chat_window = ScrollView(size_hint=(1, 0.8))
@@ -30,6 +30,7 @@ class ChatInterface(GridLayout):
         user_input = self.entry_field.text
         self.chat_window_text.text += "You: " + user_input + "\n"
         self.entry_field.text = ""
+        self.on_submit(user_input)  # Call the callback function
         chatbot_response = sentiment_analysis.generate_response(self.df, user_input)
         self.show_response(chatbot_response)
 
@@ -43,9 +44,8 @@ class MainApp(App):
         self.df = df
 
     def build(self):
-        self.chat_interface = ChatInterface(df=self.df)
+        self.chat_interface = ChatInterface(self.df, self.handle_user_input)
         return self.chat_interface
 
 if __name__ == "__main__":
     MainApp().run()
-
