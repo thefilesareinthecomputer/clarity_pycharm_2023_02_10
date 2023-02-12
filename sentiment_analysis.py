@@ -3,7 +3,6 @@
 import nltk
 import random
 import torch
-import torchtext
 
 nltk.download("vader_lexicon")
 nltk.download("punkt")
@@ -11,7 +10,7 @@ nltk.download("punkt")
 from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
 
-def get_response(user_input: str) -> str:
+def generate_response(df, user_input: str) -> str:
     sid = SentimentIntensityAnalyzer()
     sentiment = sid.polarity_scores(user_input)
     sentiment_score = sentiment['compound']
